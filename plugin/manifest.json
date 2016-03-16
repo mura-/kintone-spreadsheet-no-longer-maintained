@@ -1,0 +1,37 @@
+{
+    "manifest_version": 1,
+    "version": 1,
+    "type": "APP",
+    "name": {
+        "ja": "Excelライク",
+        "en": "Excel like"
+    },
+    "description": {
+        "ja": "Excelライク",
+        "en": "Excel like"
+    },
+    "icon": "image/icon.png",
+    "homepage_url": {
+        "ja": "https://www.cybozu.com/"
+    },
+    "desktop": {
+        "js": [
+            "https://js.cybozu.com/jquery/2.1.1/jquery.min.js",
+            "https://js.cybozu.com/handsontable/0.21.0/handsontable.full.min.js",
+            "js/desktop.js"
+        ],
+        "css": [
+            "https://js.cybozu.com/handsontable/0.21.0/handsontable.full.min.css"
+        ]
+    },
+    "config": {
+        "html": "html/config.html",
+        "js": [
+            "https://js.cybozu.com/jquery/2.1.1/jquery.min.js",
+            "https://js.cybozu.com/jqueryui/1.11.4/jquery-ui.min.js",
+            "https://cdn.jsdelivr.net/vue/1.0.17/vue.min.js",
+            "https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js",
+            "js/config.js"
+        ]
+    }
+}

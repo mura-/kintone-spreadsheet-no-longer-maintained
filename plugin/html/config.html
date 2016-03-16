@@ -1,0 +1,32 @@
+<div id='form'>
+  <table>
+    <thead>
+      <tr>
+        <th v-for='(index, column) in columns'>
+          {{ index + 1 }} 列目
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id='columns'>
+        <td v-for='(index, column) in columns'>
+          <div class='kintoneplugin-input-outer'>
+            <div class='control'>
+              <button class='delColumn' v-on:click='delColumn(index)'>x</button>
+              <button class='delColumn' v-on:click='addColumn(index+1)'>+</button>
+            </div>
+            <select v-model='column'>
+              <option v-bind:value='option.value' v-for='option in options'>
+                {{ option.text }}
+              </option>
+            </select>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class='block'>
+    <button class='kintoneplugin-button-dialog-ok' id='submit' type='button' v-on:click='registConfig'>保存する</button>
+    <button class='kintoneplugin-button-dialog-cancel' id='cancel' type='button' v-on:click='cancel'>キャンセル</button>
+  </div>
+</div>
