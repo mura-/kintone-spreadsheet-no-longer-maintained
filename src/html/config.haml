@@ -17,13 +17,6 @@
                   %option(v-for="option in options" v-bind:value="option.value")
                     {{ option.text }}
   .kintoneplugin-row
-    .kintoneplugin-label プラグインを適用するカスタマイズビューのビューIDを入力してください
-    %div
-      .kintone-box
-        .kintoneplugin-input-outer
-          .div ビューID
-          %input.kintoneplugin-input-text(type="text" v-model="viewId" placeholder="7199")
-  .kintoneplugin-row
     .kintoneplugin-label プラグインを適用する要素のIDを入力してください
     %div
       .kintone-box

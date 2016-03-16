@@ -35,7 +35,6 @@ jQuery.noConflict();
         data: {
           options: options,
           columns: arrColumnConfig(config),
-          viewId: 'viewId' in config ? config.viewId: '',
           elementId: 'elementId' in config ? config.elementId : '',
         },
         methods: {
@@ -50,7 +49,6 @@ jQuery.noConflict();
             this.columns.forEach((column, i) => {
               config[`columns${i}`] = column;
             });
-            config['viewId'] = this.viewId;
             config['elementId'] = this.elementId;
             kintone.plugin.app.setConfig(config);
           },
