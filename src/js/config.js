@@ -3,12 +3,13 @@ jQuery.noConflict();
 (($, PLUGIN_ID) => {
 
   var arrColumnConfig = (config) => {
-    return Object.keys(config).map((key) => {
+    var result = [];
+    Object.keys(config).forEach((key) => {
       if (key.substring(0, 6) === "column") {
-        return config[key];
+        result.push(config[key]);
       }
     });
-
+    return result;
   }
 
   var config = kintone.plugin.app.getConfig(PLUGIN_ID);
@@ -29,11 +30,13 @@ jQuery.noConflict();
         return {text: fields[key], value: fields[key]};
       });
        
-      window.vue = new Vue({
+      var vue = new Vue({
         el: '#form',
         data: {
           options: options,
-          columns: arrColumnConfig(config)
+          columns: arrColumnConfig(config),
+          viewId: 'viewId' in config ? config.viewId: '',
+          elementId: 'elementId' in config ? config.elementId : '',
         },
         methods: {
           delColumn(index) {
@@ -47,6 +50,8 @@ jQuery.noConflict();
             this.columns.forEach((column, i) => {
               config[`columns${i}`] = column;
             });
+            config['viewId'] = this.viewId;
+            config['elementId'] = this.elementId;
             kintone.plugin.app.setConfig(config);
           },
           cancel() {
@@ -56,21 +61,6 @@ jQuery.noConflict();
       });
     })
   });
-
-
-  // config = {
-  //   "column0": "レコード番号",
-  //   "column1": "会社名",
-  //   "column2": "先方担当者名",
-  //   "column3": "見込み時期",
-  //   "column4": "確度",
-  //   "column5": "製品名",
-  //   "column6": "単価",
-  //   "column7": "ユーザー数",
-  //   "column8": "小計"
-  // };
-
-  // kintone.plugin.app.setConfig(config);
 
 })(jQuery, kintone.$PLUGIN_ID);
 

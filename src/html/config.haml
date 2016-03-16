@@ -1,19 +1,35 @@
-%div#form
-  %table
-    %thead
-      %tr
-        %th(v-for="(index, column) in columns")
-          {{ index + 1 }} 列目
-    %tbody
-      %tr#columns
-        %td(v-for="(index, column) in columns")
-          .kintoneplugin-input-outer
-            .control
-              %button.delColumn(v-on:click="delColumn(index)") x
-              %button.delColumn(v-on:click="addColumn(index+1)") +
-            %select(v-model="column")
-              %option(v-for="option in options" v-bind:value="option.value")
-                {{ option.text }}
+#form.colorcell-plugin
+  .kintoneplugin-row
+    %table
+      %thead
+        %tr
+          %th(v-for="(index, column) in columns")
+            {{ index + 1 }} 列目
+      %tbody
+        %tr#columns
+          %td(v-for="(index, column) in columns")
+            .kintoneplugin-input-outer
+              .control
+                %button.delColumn(v-on:click="delColumn(index)") x
+                %button.delColumn(v-on:click="addColumn(index+1)") +
+              .kintoneplugin-select
+                %select(v-model="column")
+                  %option(v-for="option in options" v-bind:value="option.value")
+                    {{ option.text }}
+  .kintoneplugin-row
+    .kintoneplugin-label プラグインを適用するカスタマイズビューのビューIDを入力してください
+    %div
+      .kintone-box
+        .kintoneplugin-input-outer
+          .div ビューID
+          %input.kintoneplugin-input-text(type="text" v-model="viewId" placeholder="7199")
+  .kintoneplugin-row
+    .kintoneplugin-label プラグインを適用する要素のIDを入力してください
+    %div
+      .kintone-box
+        .kintoneplugin-input-outer
+          .div 要素ID
+          %input.kintoneplugin-input-text(type="text" v-model="elementId" placeholder="sheet")
   .block
     %button#submit.kintoneplugin-button-dialog-ok(type="button" v-on:click="registConfig") 保存する
     %button#cancel.kintoneplugin-button-dialog-cancel(type="button" v-on:click="cancel") キャンセル
