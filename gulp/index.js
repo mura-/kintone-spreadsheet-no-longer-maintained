@@ -69,6 +69,7 @@ gulp.task('haml', () => {
   gulp.src(config.html.srcDir + '*.haml')
   .pipe(haml())
   .pipe(gulp.dest(config.html.destDir))
+  .pipe(exec(config.plugin.compiler + ' ' + config.plugin.srcDir + ' ' + config.plugin.key))
   .pipe(notify("Haml Compile Succeed!"));
 });
 
@@ -76,6 +77,7 @@ gulp.task('sass', () => {
   gulp.src(config.css.srcDir + '*.scss')
   .pipe(sass())
   .pipe(gulp.dest(config.css.destDir))
+  .pipe(exec(config.plugin.compiler + ' ' + config.plugin.srcDir + ' ' + config.plugin.key))
   .pipe(notify("Sass Compile Succeed!"));
 });
 
