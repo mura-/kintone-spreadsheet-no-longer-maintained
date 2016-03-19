@@ -3,12 +3,12 @@
     "version": 1,
     "type": "APP",
     "name": {
-        "ja": "Excelライク",
-        "en": "Excel like"
+        "ja": "kintone スプレッドシート",
+        "en": "kintone spreadsheet"
     },
     "description": {
-        "ja": "Excelライク",
-        "en": "Excel like"
+        "ja": "kintoneの一覧画面をExcelのようにデータの追加や編集が追加ができます。",
+        "en": "You can add and edit like spreadsheet."
     },
     "icon": "image/icon.png",
     "homepage_url": {
@@ -32,6 +32,9 @@
             "https://cdn.jsdelivr.net/vue/1.0.17/vue.min.js",
             "https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.4.2/Sortable.min.js",
             "js/config.js"
+        ],
+        "css": [
+            "css/config.css"
         ]
     }
 }
