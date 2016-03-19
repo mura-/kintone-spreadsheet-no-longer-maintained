@@ -1,5 +1,6 @@
 #form.colorcell-plugin
   .kintoneplugin-row
+    .kintoneplugin-label フィールドを設定してください
     %table
       %thead
         %tr
@@ -9,21 +10,26 @@
         %tr#columns
           %td(v-for="(index, column) in columns")
             .kintoneplugin-input-outer
-              .control
-                %button.delColumn(v-on:click="delColumn(index)") x
-                %button.delColumn(v-on:click="addColumn(index+1)") +
               .kintoneplugin-select
                 %select(v-model="column")
                   %option(v-for="option in options" v-bind:value="option.value")
                     {{ option.text }}
+                %button.addColumn(v-on:click="addColumn(index+1)") +
+              .control
+                %a.delColumn(href="javascript:void(0)" v-on:click="delColumn(index)") 削除
   .kintoneplugin-row
     .kintoneplugin-label プラグインを適用する要素のIDを入力してください
     %div
       .kintone-box
         .kintoneplugin-input-outer
-          .div 要素ID
-          %input.kintoneplugin-input-text(type="text" v-model="elementId" placeholder="sheet")
-  .block
+          .div 
+            要素ID
+            %input.kintoneplugin-input-text(type="text" v-model="elementId" placeholder="sheet")
+  .kintoneplugin-row
     %button#submit.kintoneplugin-button-dialog-ok(type="button" v-on:click="registConfig") 保存する
     %button#cancel.kintoneplugin-button-dialog-cancel(type="button" v-on:click="cancel") キャンセル
+  .kintoneplugin-row
+    ※ カスタマイズビューを作成し、以下のようにスプレットシートのための要素を用意してください。
+    %br
+    &lt;div id="sheet"&gt;&lt;/div&gt;
 
