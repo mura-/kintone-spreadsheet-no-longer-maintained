@@ -46,7 +46,7 @@ jQuery.noConflict();
             this.columns.splice(index, 1);
           },
           addColumn(index) {
-            this.columns.splice(index, 0, this.options[0]);
+            this.columns.splice(index, 0, this.options[0].value);
           },
           registConfig() {
             var config = {};

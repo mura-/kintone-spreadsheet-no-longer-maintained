@@ -4,11 +4,11 @@
     %table
       %thead
         %tr
-          %th(v-for="(index, column) in columns")
+          %th(v-for="(index, column) in columns " track-by="$index")
             {{ index + 1 }} 列目
       %tbody
         %tr#columns
-          %td(v-for="(index, column) in columns")
+          %td(v-for="(index, column) in columns" track-by="$index")
             .kintoneplugin-input-outer
               .kintoneplugin-select
                 %select(v-model="column")
