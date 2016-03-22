@@ -29,12 +29,16 @@ jQuery.noConflict();
       var options = fields.map((i, key) => {
         return {text: fields[key], value: fields[key]};
       });
+
+      var columns = arrColumnConfig(config);
+      // 未設定の場合はデフォルト設定
+      if (columns.length <= 0) columns = [options[0].value];
        
       var vue = new Vue({
         el: '#form',
         data: {
           options: options,
-          columns: arrColumnConfig(config),
+          columns: columns,
           elementId: 'elementId' in config ? config.elementId : '',
         },
         methods: {
