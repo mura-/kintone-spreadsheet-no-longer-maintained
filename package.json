@@ -5,6 +5,8 @@
   "main": "./gulp/index.babel.js",
   "private": true,
   "scripts": {
+    "build": "gulp build",
+    "dev": "gulp dev",
     "test": "karma start"
   },
   "author": "mura-",
