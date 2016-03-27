@@ -1,0 +1,2 @@
+# kintone-spreadsheet
+kintoneの一覧画面をExcelのようなスプレットシートの見た目で閲覧、編集ができます。
