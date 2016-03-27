@@ -1,4 +1,6 @@
 module.exports = {
+  srcBase: './src/',
+  destBase: './plugin/',
   js: {
     entries: ['desktop.js', 'config.js'],
     srcDir: './src/js/',

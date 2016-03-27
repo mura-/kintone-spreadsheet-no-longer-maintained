@@ -11,8 +11,6 @@ import haml from 'gulp-ruby-haml' ;
 import watch from 'gulp-watch';
 import sass from 'gulp-sass';
 
-
-
 const BROWSERIFY_OPTIONS = {
   entries: config.js.entries,
   extensions: ['.js'],
@@ -35,6 +33,7 @@ var createTask = function(entries, dest){
     bundler = watchify(bundler);
     bundler.on('update', () => {
       rebundle();
+      gulp.start('buildPlugin');
     });
   }
   rebundle();
@@ -48,7 +47,6 @@ var createTask = function(entries, dest){
     .pipe(exec(config.plugin.compiler + ' ' + config.plugin.srcDir + ' ' + config.plugin.key))
     .pipe(notify(dest + " Compile Succeed!"));
   }
-
 };
 
 gulp.task('js', () => {
@@ -62,33 +60,36 @@ gulp.task('js', () => {
     return "browserify:" + app;
   });
   gulp.task('browserify', tasks);
-  gulp.start('browserify');
+  return gulp.start('browserify');
+});
+
+gulp.task('buildPlugin', () => {
+  gulp.src(config.srcBase + 'manifest.json')
+  .pipe(gulp.dest(config.destBase))
+  .pipe(exec(config.plugin.compiler + ' ' + config.plugin.srcDir + ' ' + config.plugin.key));
 });
 
 gulp.task('haml', () => {
-  gulp.src(config.html.srcDir + '*.haml')
+  return gulp.src(config.html.srcDir + '*.haml')
   .pipe(haml())
   .pipe(gulp.dest(config.html.destDir))
-  .pipe(exec(config.plugin.compiler + ' ' + config.plugin.srcDir + ' ' + config.plugin.key))
   .pipe(notify("Haml Compile Succeed!"));
 });
 
 gulp.task('sass', () => {
-  gulp.src(config.css.srcDir + '*.scss')
+  return gulp.src(config.css.srcDir + '*.scss')
   .pipe(sass())
   .pipe(gulp.dest(config.css.destDir))
-  .pipe(exec(config.plugin.compiler + ' ' + config.plugin.srcDir + ' ' + config.plugin.key))
   .pipe(notify("Sass Compile Succeed!"));
 });
 
-gulp.task('build', () => {
-  gulp.start('js');
-  gulp.start('haml');
-  gulp.start('sass');
+gulp.task('build', ['js', 'haml', 'sass'], () => {
+  gulp.start('buildPlugin');
 })
 
 gulp.task('dev', ['enable-watch-mode'],  () => {
-  gulp.start('build');
-  gulp.watch(config.html.srcDir + '*.haml', ['haml']);
-  gulp.watch(config.css.srcDir + '*.scss', ['sass']);
+  gulp.start('js');
+  gulp.watch(config.html.srcDir + '*.haml', ['build']);
+  gulp.watch(config.css.srcDir + '*.scss', ['build']);
+  gulp.watch(config.srcBase + 'manifest.json', ['build']);
 });
