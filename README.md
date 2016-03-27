@@ -16,7 +16,7 @@ kintoneの一覧画面をExcelのようなスプレットシートの見た目�
 - 設定されたフィールドはスプレットシート上に表示され、レコードの編集、追加、削除ができる
 
 ## Usage
-1. プラグインをDownloadする
+1. プラグインを[Downloadする](https://github.com/mura-/kintone-spreadsheet/releases/download/v0.9.0/plugin.zip)
 1. プラグインを[インポートする](https://help.cybozu.com/ja/k/admin/plugin.html)
 1. プラグインの設定をする
 
