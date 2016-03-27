@@ -15,8 +15,8 @@ module.exports = {
     destDir: './plugin/css/'
   },
   plugin: {
-    compiler: '/Users/k_murahama/workspace/alphasta/plugin-sdk/package.sh',
-    srcDir: '/Users/k_murahama/workspace/alphasta/kintone_plugin_excel/plugin',
-    key: '/Users/k_murahama/workspace/alphasta/plugin-sdk/keys/kintone_plugin_excel.koalbpoikmjjcilaonolnfoejicapkim.ppk'
+    compiler: '/path/to/plugin-sdk/package.sh',
+    srcDir: './plugin',
+    key: '/path/to/plugin-sdk/keys/pluginid.ppk'
   }
 };
