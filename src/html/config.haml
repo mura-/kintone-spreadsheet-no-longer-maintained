@@ -1,11 +1,28 @@
 #form.colorcell-plugin
   .kintoneplugin-row
-    .kintoneplugin-label フィールドを設定してください
+    .kintoneplugin-label 1. カスタマイズビューを作成してください。
+    カスタマイズビューを作成し、下記例のようにスプレットシートのための要素を用意してください。
+    %br
+    %a(href="https://help.cybozu.com/ja/k/user/set_view.html" target="_blank") kintone ユーザーヘルプ: 一覧を設定する
+    %br
+    %br
+    例)
+    %br
+    &lt;div id="sheet"&gt;&lt;/div&gt;
+  .kintoneplugin-row
+    .kintoneplugin-label 2. 1で設定した要素IDを入力してください。
+    .kintoneplugin-input-outer
+      %input.kintoneplugin-input-text(type="text" v-model="elementId" placeholder="sheet")
+  .kintoneplugin-row
+    .kintoneplugin-label 3. スプレットシートに表示したいフィールドを設定してください。
     %table
       %thead
         %tr
           %th(v-for="(index, column) in columns " track-by="$index")
             {{ index + 1 }} 列目
+            .control
+              %button.addColumn(v-on:click="addColumn(index+1)") +
+              %button.addColumn(v-on:click="delColumn(index)") x
       %tbody
         %tr#columns
           %td(v-for="(index, column) in columns" track-by="$index")
@@ -14,22 +31,7 @@
                 %select(v-model="column")
                   %option(v-for="option in options" v-bind:value="option.value")
                     {{ option.text }}
-                %button.addColumn(v-on:click="addColumn(index+1)") +
-              .control
-                %a.delColumn(href="javascript:void(0)" v-on:click="delColumn(index)") 削除
-  .kintoneplugin-row
-    .kintoneplugin-label プラグインを適用する要素のIDを入力してください
-    %div
-      .kintone-box
-        .kintoneplugin-input-outer
-          .div 
-            要素ID
-            %input.kintoneplugin-input-text(type="text" v-model="elementId" placeholder="sheet")
   .kintoneplugin-row
     %button#submit.kintoneplugin-button-dialog-ok(type="button" v-on:click="registConfig") 保存する
     %button#cancel.kintoneplugin-button-dialog-cancel(type="button" v-on:click="cancel") キャンセル
-  .kintoneplugin-row
-    ※ カスタマイズビューを作成し、以下のようにスプレットシートのための要素を用意してください。
-    %br
-    &lt;div id="sheet"&gt;&lt;/div&gt;
 
