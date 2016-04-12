@@ -1,19 +1,19 @@
-kintone スプレットシート
+kintone スプレッドシート
 ==========================
 
 ## Description
 
-kintoneの一覧画面をExcelのようなスプレットシートの見た目で閲覧、編集ができます。
+kintoneの一覧画面をExcelのようなスプレッドシートの見た目で閲覧、編集ができます。
 現在ベータ版です。
 
 [DEMO](https://dev-demo.cybozu.com/k/39/)   
 デモ環境についての説明は [こちら](https://cybozudev.zendesk.com/hc/ja/articles/208217653)  
-（DEMOはスプレットシートの挙動確認のみ。設定はできません）  
+（DEMOはスプレッドシートの挙動確認のみ。設定はできません）  
 
 ## Features
 
 - kintoneアプリの任意のフィールドを設定できる
-- 設定されたフィールドはスプレットシート上に表示され、レコードの編集、追加、削除ができる
+- 設定されたフィールドはスプレッドシート上に表示され、レコードの編集、追加、削除ができる
 
 ## Usage
 1. プラグインを[Downloadする](https://github.com/mura-/kintone-spreadsheet/releases/download/v0.9.0/plugin.zip)

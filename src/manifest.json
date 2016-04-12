@@ -8,11 +8,12 @@
     },
     "description": {
         "ja": "kintoneの一覧画面をExcelのようにデータの追加や編集が追加ができます。",
-        "en": "You can add and edit like spreadsheet."
+        "en": "You can add and edit records like spreadsheet."
     },
     "icon": "image/icon.png",
     "homepage_url": {
-        "ja": "https://www.cybozu.com/"
+        "ja": "https://github.com/mura-/kintone-spreadsheet",
+        "en": "https://github.com/mura-/kintone-spreadsheet"
     },
     "desktop": {
         "js": [
