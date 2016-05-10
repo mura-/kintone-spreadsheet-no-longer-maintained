@@ -12,6 +12,8 @@ jQuery.noConflict();
     var columnData = u.getColumnData(columns);
     var container = document.getElementById(config.elementId);
 
+    if (!container) return false;
+
     var hot;
     hot = new Handsontable(container, {
       // この時点ではdataは入力せず、あとから読み込ませるようにする。（データ更新時も再読み込みさせたいため）
