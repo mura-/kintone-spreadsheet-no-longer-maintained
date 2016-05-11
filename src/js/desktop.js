@@ -14,6 +14,8 @@ jQuery.noConflict();
 
     if (!container) return false;
 
+    u.setExcpectField();
+
     var hot;
     hot = new Handsontable(container, {
       // この時点ではdataは入力せず、あとから読み込ませるようにする。（データ更新時も再読み込みさせたいため）
