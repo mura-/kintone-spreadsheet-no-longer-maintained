@@ -1,9 +1,26 @@
-const utils = {
-  // kintoneのレコード更新・追加時は、レコード番号などアップデートできないフィールドがあるので、除外するためのメソッド
+var utils = {
+  exceptField: null,
+
+  // 除外するべきフィールドコードを取得
+  setExcpectField: () => {
+    let exceptField = [];
+    kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()}, 
+    (resp) => {
+      let properties = resp.properties;
+      for (let prop in properties) {
+        if (['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'].indexOf(properties[prop].type) !== -1) {
+          exceptField.push(properties[prop].code);
+        }
+      }
+      utils.exceptField = exceptField;
+    });
+  },
+
+  // kintoneのレコード更新・追加時は、$idなどアップデートできないフィールドがあるので、除外するためのメソッド
   setParams: (record) => {
     var result = {};
-    for (var prop in record) {
-      if (['レコード番号', '作成日時', '更新日時', '作成者', '更新者', 'ステータス', '作業者'].indexOf(prop) === -1) {
+    for (let prop in record) {
+      if (utils.exceptField.indexOf(prop) === -1) {
         result[prop] = record[prop];
       }
     }
@@ -12,7 +29,7 @@ const utils = {
   
   // kintoneのレコード取得用メソッド
   getRecords: (callback, errorCallback) => {
-    kintone.api('/k/v1/records', 'GET', {app: kintone.app.getId(), query: 'order by レコード番号 asc limit 500'},
+    kintone.api('/k/v1/records', 'GET', {app: kintone.app.getId(), query: 'order by $id asc limit 500'},
       function(resp) {
         callback(resp);
       },
@@ -41,13 +58,13 @@ const utils = {
   
     // 変更があった行から、レコード追加か変更かを判断し、クエリをつくる
     for(i = 0; i < changedRows.length; i++) {
-      if (records[changedRows[i]]["レコード番号"].value === null) {
+      if (records[changedRows[i]]["$id"].value === null) {
         insertRecords.push(
           utils.setParams(records[changedRows[i]])
         );
       } else {
         updateRecords.push({
-          id: records[changedRows[i]]["レコード番号"].value,
+          id: records[changedRows[i]]["$id"].value,
           record: utils.setParams(records[changedRows[i]])
         });
       }
@@ -92,7 +109,7 @@ const utils = {
     var i;
     var ids = [];
     for(i = index; i < index+amount; i++) {
-      ids.push(records[i]["レコード番号"].value);
+      ids.push(records[i]["$id"].value);
     }
     kintone.api('/k/v1/records', 'DELETE', {app: kintone.app.getId(), ids: ids},
       (resp) => {
@@ -120,7 +137,7 @@ const utils = {
         data: `${column}.value`
       };
     });
-  }
+  },
 };
 
 export default utils;
