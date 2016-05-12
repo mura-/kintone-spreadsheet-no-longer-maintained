@@ -6,6 +6,8 @@ kintone スプレッドシート
 kintoneの一覧画面をExcelのようなスプレッドシートの見た目で閲覧、編集ができます。
 現在ベータ版です。
 
+![イメージ](https://raw.githubusercontent.com/mura-/kintone-spreadsheet/master/image.gif)
+
 [DEMO](https://dev-demo.cybozu.com/k/39/)   
 デモ環境についての説明は [こちら](https://cybozudev.zendesk.com/hc/ja/articles/208217653)  
 （DEMOはスプレッドシートの挙動確認のみ。設定はできません）  
@@ -16,7 +18,7 @@ kintoneの一覧画面をExcelのようなスプレッドシートの見た目�
 - 設定されたフィールドはスプレッドシート上に表示され、レコードの編集、追加、削除ができる
 
 ## Usage
-1. プラグインを[Downloadする](https://github.com/mura-/kintone-spreadsheet/releases/download/v0.9.0/plugin.zip)
+1. プラグインを[Downloadする](https://github.com/mura-/kintone-spreadsheet/releases/)
 1. プラグインを[インポートする](https://help.cybozu.com/ja/k/admin/plugin.html)
 1. プラグインの設定をする
 
@@ -39,7 +41,7 @@ kintoneの一覧画面をExcelのようなスプレッドシートの見た目�
 `npm run dev`
 
 ### テスト実行
-今のところはユーティリティ関数のみテストしています。
+今のところはユーティリティ関数のみテストしています。  
 `npm test`
 
 ## Author
