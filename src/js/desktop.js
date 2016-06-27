@@ -1,7 +1,6 @@
 import u from './utils';
-jQuery.noConflict();
 
-(($, PLUGIN_ID) => {
+((PLUGIN_ID) => {
   kintone.events.on('app.record.index.show', (event) => {
 
     var config = kintone.plugin.app.getConfig(PLUGIN_ID);
@@ -90,6 +89,6 @@ jQuery.noConflict();
     };
 
   });
-})(jQuery, kintone.$PLUGIN_ID);
+})(kintone.$PLUGIN_ID);
 
 
