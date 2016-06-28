@@ -1,4 +1,5 @@
 import u from './utils';
+import e from './ErrorHandler';
 
 ((PLUGIN_ID) => {
   kintone.events.on('app.record.index.show', (event) => {
@@ -23,13 +24,13 @@ import u from './utils';
       colHeaders: columns,
       contextMenu: ["remove_row"],
       columns: columnData,
-  
+
       // スプレットシート上のレコードを削除したときに呼び出されるイベント
       // 引数indexは削除する行
       // 引数amountは削除する行数
       beforeRemoveRow: (index, amount) => {
         // kintoneのレコードを削除する
-        u.deleteRecords(hot.getSourceData(), index, amount, 
+        u.deleteRecords(hot.getSourceData(), index, amount,
           (resp) => {
             console.dir(resp);
             u.getRecords((resp) => {
@@ -41,18 +42,18 @@ import u from './utils';
           }
         );
       },
-      
+
       // スプレットシート上のレコードが編集されたときに呼び出されるイベント
       afterChange: (change, source) => {
         console.log(source);
-  
+
         // データ読み込み時はイベントを終了
         if (source === 'loadData') {
           return;
         }
-  
+
         // kintoneのレコードを更新、追加する
-        u.saveRecords(hot.getSourceData(), change, 
+        u.saveRecords(hot.getSourceData(), change,
           (resp) => {
             console.dir(resp);
             u.getRecords((resp) => {
@@ -63,15 +64,15 @@ import u from './utils';
               // レコード取得失敗時に呼び出される
               console.dir(resp);
             });
-          }, 
+          },
           (resp) => {
             // 更新・追加時に呼び出される
-            console.dir(resp);
+            throw new e.apiError(resp);
           }
         );
       }
     });
-  
+
     // レコードを取得してhandsontableに反映
     u.getRecords((resp) => {
       hot.loadData(resp.records);
@@ -79,7 +80,7 @@ import u from './utils';
     });
 
     // 定期的にkintone上のデータを再取得する
-    var autoload = () => { 
+    var autoload = () => {
       setTimeout(() => {
         u.getRecords((resp) => {
           hot.loadData(resp.records);
