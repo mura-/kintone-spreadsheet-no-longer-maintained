@@ -2,3 +2,4 @@
 node_modules
 plugin
 gulp/config.js
+.idea/

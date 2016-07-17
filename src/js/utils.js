@@ -132,12 +132,23 @@ var utils = {
   },
 
   getColumnData: (columns) => {
-    return columns.map((column) => {
-      return {
-        data: `${column}.value`
-      };
+    return utils.getFieldsInfo().then((resp) => {
+      return columns.map((column) => {
+        var columnData = {data: `${column}.value`};
+        
+        // if type is DROP_DOWN, add type and source property
+        if (resp.properties[column].type === "DROP_DOWN") {
+          columnData.type = resp.properties[column].type === "DROP_DOWN" ? "dropdown" : "";
+          columnData.source = Object.keys(resp.properties[column].options);
+        }
+        return columnData;
+      });
     });
   },
+
+  getFieldsInfo: () => {
+    return kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()});
+  }
 };
 
 export default utils;
