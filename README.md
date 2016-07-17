@@ -17,6 +17,16 @@ kintoneの一覧画面をExcelのようなスプレッドシートの見た目�
 - kintoneアプリの任意のフィールドを設定できる
 - 設定されたフィールドはスプレッドシート上に表示され、レコードの編集、追加、削除ができる
 
+### Recentry support
+- ドロップダウンフィールド、ラジオボタンフィールドに対応
+![イメージ](https://raw.githubusercontent.com/mura-/kintone-spreadsheet/master/dropdown.gif)
+
+### Cautionary note
+- 現在、表示は最大500件まで
+- ユーザーフィールド、チェックボックスには現在非対応
+- 同期処理のため10秒に1回リフレッシュされます。
+  APIの使用制限にかかる恐れもあるので長時間の開きっぱなしはオススメしません。
+
 ## Usage
 1. プラグインを[Downloadする](https://github.com/mura-/kintone-spreadsheet/releases/)
 1. プラグインを[インポートする](https://help.cybozu.com/ja/k/admin/plugin.html)
