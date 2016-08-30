@@ -2,18 +2,14 @@ var utils = {
   exceptField: null,
 
   // 除外するべきフィールドコードを取得
-  setExcpectField: () => {
-    let exceptField = [];
-    kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()},
-    (resp) => {
-      let properties = resp.properties;
-      for (let prop in properties) {
-        if (['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'].indexOf(properties[prop].type) !== -1) {
-          exceptField.push(properties[prop].code);
-        }
+  setExcpectField: (columns) => {
+    var exceptField = [];
+    for (let column in columns) {
+      if (['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'].indexOf(properties[prop].type) !== -1) {
+        exceptField.push(columns[column].code);
       }
-      utils.exceptField = exceptField;
-    });
+    }
+    utils.exceptField = exceptField;
   },
 
   // kintoneのレコード更新・追加時は、$idなどアップデートできないフィールドがあるので、除外するためのメソッド
@@ -140,10 +136,6 @@ var utils = {
       }
       return columnData;
     });
-  },
-
-  getFieldsInfo: () => {
-    return kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()});
   }
 };
 

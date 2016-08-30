@@ -12,9 +12,9 @@ import e from './ErrorHandler';
 
     if (!container) return false;
 
-    u.setExcpectField();
     var columns = JSON.parse(config.columns);
 
+    u.setExcpectField(columns);
     var colHeaders = u.getColHeaders(columns);
     var hot;
 
