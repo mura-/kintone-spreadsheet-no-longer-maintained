@@ -121,28 +121,24 @@ var utils = {
     );
   },
 
-  getColumnsFromConfig: (config) => {
+  getColHeaders: (columns) => {
     var result = [];
-    Object.keys(config).forEach((key) => {
-      if (key.substring(0, 6) === "column") {
-        result.push(config[key]);
-      }
+    columns.forEach((column) => {
+      result.push(column.code);
     });
     return result;
   },
 
   getColumnData: (columns) => {
-    return utils.getFieldsInfo().then((resp) => {
-      return columns.map((column) => {
-        var columnData = {data: `${column}.value`};
+    return columns.map((column) => {
+      var columnData = {data: `${column.code}.value`};
 
-        // if type is DROP_DOWN, add type and source property
-        if (resp.properties[column].type === "DROP_DOWN" || resp.properties[column].type === "RADIO_BUTTON") {
-          columnData.type = "dropdown";
-          columnData.source = Object.keys(resp.properties[column].options);
-        }
-        return columnData;
-      });
+      // if type is DROP_DOWN, add type and source property
+      if (column.type === "DROP_DOWN" || column.type === "RADIO_BUTTON") {
+        columnData.type = "dropdown";
+        columnData.source = Object.keys(column.options);
+      }
+      return columnData;
     });
   },
 
