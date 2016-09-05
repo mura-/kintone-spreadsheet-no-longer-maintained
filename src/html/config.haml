@@ -29,8 +29,9 @@
             .kintoneplugin-input-outer
               .kintoneplugin-select
                 %select(v-model="column")
-                  %option(v-for="option in options" v-bind:value="option.value")
-                    {{ option.text }}
+                  /%option(v-for="option in options" v-bind:value="option.value")
+                  %option(v-for="option in options" v-bind:value="option")
+                    {{ option.code }}
   .kintoneplugin-row
     %button#submit.kintoneplugin-button-dialog-ok(type="button" v-on:click="registConfig") 保存する
     %button#cancel.kintoneplugin-button-dialog-cancel(type="button" v-on:click="cancel") キャンセル

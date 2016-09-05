@@ -2,52 +2,7 @@ import assert from "power-assert";
 import utils from "../src/js/utils";
 
 describe("ユーティリティのテスト", () => {
-  var config = {
-    column1: "col1",
-    column2: "col2",
-    column3: "col3",
-    column4: "col4",
-    column5: "col5",
-    column6: "col6",
-    column7: "col7",
-    column8: "col8",
-    column9: "col9",
-    column10: "col10",
-    column11: "col11",
-    elementId: "sheet"
-  };
-  describe("getColumnsFromConfig", () => {
-
-    it("configからcolumnsが取得でき, 余計なカラムがない", () => {
-      var columns = utils.getColumnsFromConfig(config);
-      assert(columns.toString() ===  ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7', 'col8', 'col9', 'col10', 'col11'].toString());
-    });
-
-    it("configが空の場合は空の配列が返却される", () => {
-      var columns = utils.getColumnsFromConfig({});
-      assert(columns.toString() ===  [].toString());
-    });
-
-    it("configがcolumnから始まらないものは無視する", () => {
-      var columns = utils.getColumnsFromConfig({hoge: 123});
-      assert(columns.toString() ===  [].toString());
-    });
-  });
-
-  describe("getColumnData", () => {
-    it("columns配列から、handsontableで利用するためのオブジェクト配列に変換できる", () => {
-      var columns = ['col1', 'col2', 'col3', 'col4', 'col5'];
-      var columnsData = utils.getColumnData(columns);
-      assert(JSON.stringify(columnsData) === JSON.stringify([
-        {data: 'col1.value'},
-        {data: 'col2.value'},
-        {data: 'col3.value'},
-        {data: 'col4.value'},
-        {data: 'col5.value'},
-      ]));
-    })
-  });
-
+  
   describe("setParams", () => {
     var record = {
       "レコード番号": {
@@ -139,6 +94,7 @@ describe("ユーティリティのテスト", () => {
         "value":"36"
       }
     };
+    
     it("kintoneのレコードオブジェクトから不要なデータを取り除く", () => {
       var params = utils.setParams(record);
       assert(
