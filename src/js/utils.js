@@ -1,22 +1,11 @@
+const EXCEPT_FIELD_TYPES = ['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'];
 var utils = {
-  exceptField: null,
-
-  // 除外するべきフィールドコードを取得
-  setExcpectField: (columns) => {
-    var exceptField = [];
-    for (let column in columns) {
-      if (['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'].indexOf(properties[prop].type) !== -1) {
-        exceptField.push(columns[column].code);
-      }
-    }
-    utils.exceptField = exceptField;
-  },
 
   // kintoneのレコード更新・追加時は、$idなどアップデートできないフィールドがあるので、除外するためのメソッド
   setParams: (record) => {
     var result = {};
     for (let prop in record) {
-      if (utils.exceptField.indexOf(prop) === -1) {
+      if (EXCEPT_FIELD_TYPES.indexOf(record[prop].type) === -1) {
         result[prop] = record[prop];
       }
     }
@@ -35,7 +24,7 @@ var utils = {
     );
   },
 
-  // kintoneのレコード更新、追加用メソッド
+  // kintoneのレコード更新、追加用メソッド 
   saveRecords: (records, changedDatas, callback, errorCallback) => {
     var requests = [];
     var updateRecords = [];

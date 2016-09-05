@@ -14,7 +14,6 @@ import e from './ErrorHandler';
 
     var columns = JSON.parse(config.columns);
 
-    u.setExcpectField(columns);
     var colHeaders = u.getColHeaders(columns);
     var hot;
 
