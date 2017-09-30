@@ -1,13 +1,13 @@
 const EXCEPT_FIELD_TYPES = ['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'];
 const ARRAY_FIELDS = ['CHECK_BOX', 'MULTI_SELECT', 'FILE', 'USER_SELECT', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
-const NOT_APPROVED_EDIT_FIELDS = ['CALC', 'CHECK_BOX', 'MULTI_SELECT', 'FILE', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
+const NOT_APPROVED_EDIT_FIELDS = ["USER_SELECT", 'CALC', 'CHECK_BOX', 'MULTI_SELECT', 'FILE', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
 
 var utils = {
   // kintoneのレコード更新・追加時は、$idなどアップデートできないフィールドがあるので、除外するためのメソッド
   setParams: (record) => {
     var result = {};
     for (let prop in record) {
-      if (EXCEPT_FIELD_TYPES.indexOf(record[prop].type) === -1) {
+      if (EXCEPT_FIELD_TYPES.concat(NOT_APPROVED_EDIT_FIELDS).indexOf(record[prop].type) === -1) {
         result[prop] = record[prop];
       }
     }
@@ -135,8 +135,6 @@ var utils = {
 
         if (resp.properties[column].type === "USER_SELECT") {
           columnData.renderer = utils.userSelectRenderer;
-          columnData.type = "dropdown";
-          columnData.source = utils.usersList;
         }
 
         // set read only
