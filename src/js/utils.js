@@ -1,4 +1,7 @@
 const EXCEPT_FIELD_TYPES = ['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'];
+const ARRAY_FIELDS = ['CHECK_BOX', 'MULTI_SELECT', 'FILE', 'USER_SELECT', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
+const NOT_APPROVED_EDIT_FIELDS = ['CALC', 'CHECK_BOX', 'MULTI_SELECT', 'FILE', 'USER_SELECT', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
+
 var utils = {
   exceptField: null,
 
@@ -144,6 +147,11 @@ var utils = {
         if (resp.properties[column].type === "DROP_DOWN" || resp.properties[column].type === "RADIO_BUTTON") {
           columnData.type = "dropdown";
           columnData.source = Object.keys(resp.properties[column].options);
+        }
+
+        // set read only
+        if (EXCEPT_FIELD_TYPES.concat(NOT_APPROVED_EDIT_FIELDS).indexOf(resp.properties[column].type) !== -1) {
+          columnData.readOnly = true;
         }
         return columnData;
       });
