@@ -12,17 +12,18 @@ import e from './ErrorHandler';
     var container = document.getElementById(config.elementId);
 
     if (!container) return false;
+    container.innerHTML = "";
 
     var columns = JSON.parse(config.columns);
 
     var colHeaders = u.getColHeaders(columns);
-    var hot;
-
     var columnData = u.getColumnData(columns);
+
+    var hot;
     hot = new Handsontable(container, {
       // この時点ではdataは入力せず、あとから読み込ませるようにする。（データ更新時も再読み込みさせたいため）
       data: [],
-      minSpareRows: 100,
+      minSpareRows: 1,
       colHeaders: colHeaders,
       contextMenu: ["remove_row"],
       columns: columnData,
