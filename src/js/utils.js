@@ -61,7 +61,7 @@ var utils = {
 
     // 変更があった行から、レコード追加か変更かを判断し、クエリをつくる
     for(i = 0; i < changedRows.length; i++) {
-      if (records[changedRows[i]]["$id"].value === null) {
+      if (!records[changedRows[i]]["$id"] || !records[changedRows[i]]["$id"].value) {
         insertRecords.push(
           utils.setParams(records[changedRows[i]])
         );
@@ -152,6 +152,7 @@ var utils = {
         if (resp.properties[column].type === "USER_SELECT") {
           columnData.renderer = utils.userSelectRenderer;
           columnData.type = "dropdown";
+          columnData.source = utils.usersList;
         }
 
         // set read only
@@ -160,7 +161,14 @@ var utils = {
         }
         return columnData;
       });
-      return {colHeaders, columnDatas};
+
+      // データスキーマの作成
+      const dataSchema = {};
+      columns.forEach((column) => {
+        dataSchema[column] = {type: resp.properties[column].type, value: resp.properties[column].defaultValue};
+      });
+
+      return {colHeaders, columnDatas, dataSchema};
     });
   },
 
@@ -172,6 +180,10 @@ var utils = {
     if(!value) return td;
     td.innerText = value.map(v => v.name).join(", ");
     return td;
+  },
+
+  fetchUsers: () => {
+    kintone.api('/v1/users', 'GET', {}, (resp)=>{ utils.usersList = resp.users });
   }
 };
 

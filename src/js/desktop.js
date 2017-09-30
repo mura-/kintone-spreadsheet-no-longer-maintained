@@ -19,6 +19,7 @@ import e from './ErrorHandler';
 
     // 追加、更新不可のデータ定義
     u.setExcpectField(); 
+    u.fetchUsers();
 
     // 列データの定義
     var columns = JSON.parse(config.columns);
@@ -27,7 +28,7 @@ import e from './ErrorHandler';
     // handsontable初期化
     var hot = null;
     u.getColumnData(colHeaderCodes).then((c) => { // フィールドデータ取得
-      const {colHeaders, columnDatas} = c;
+      const {colHeaders, columnDatas, dataSchema} = c;
       hot = new Handsontable(container, {
         // この時点ではdataは入力せず、あとから読み込ませるようにする。（データ更新時も再読み込みさせたいため）
         data: [],
@@ -35,6 +36,7 @@ import e from './ErrorHandler';
         colHeaders: colHeaders,
         contextMenu: ["remove_row"],
         columns: columnDatas,
+        dataSchema: dataSchema,
 
         // スプレットシート上のレコードを削除したときに呼び出されるイベント
         // 引数indexは削除する行
