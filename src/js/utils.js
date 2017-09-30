@@ -1,6 +1,6 @@
 const EXCEPT_FIELD_TYPES = ['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'];
 const ARRAY_FIELDS = ['CHECK_BOX', 'MULTI_SELECT', 'FILE', 'USER_SELECT', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
-const NOT_APPROVED_EDIT_FIELDS = ['CALC', 'CHECK_BOX', 'MULTI_SELECT', 'FILE', 'USER_SELECT', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
+const NOT_APPROVED_EDIT_FIELDS = ['CALC', 'CHECK_BOX', 'MULTI_SELECT', 'FILE', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
 
 var utils = {
   exceptField: null,
@@ -149,6 +149,11 @@ var utils = {
           columnData.source = Object.keys(resp.properties[column].options);
         }
 
+        if (resp.properties[column].type === "USER_SELECT") {
+          columnData.renderer = utils.userSelectRenderer;
+          columnData.type = "dropdown";
+        }
+
         // set read only
         if (EXCEPT_FIELD_TYPES.concat(NOT_APPROVED_EDIT_FIELDS).indexOf(resp.properties[column].type) !== -1) {
           columnData.readOnly = true;
@@ -161,6 +166,12 @@ var utils = {
 
   getFieldsInfo: () => {
     return kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()});
+  },
+
+  userSelectRenderer: (instance, td, row, col, prop, value, cellProperties) => {
+    if(!value) return td;
+    td.innerText = value.map(v => v.name).join(", ");
+    return td;
   }
 };
 
