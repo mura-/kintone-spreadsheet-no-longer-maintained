@@ -3,27 +3,11 @@ const ARRAY_FIELDS = ['CHECK_BOX', 'MULTI_SELECT', 'FILE', 'USER_SELECT', 'CATEG
 const NOT_APPROVED_EDIT_FIELDS = ['CALC', 'CHECK_BOX', 'MULTI_SELECT', 'FILE', 'CATEGORY', 'SUBTABLE', 'ORGANIZATION_SELECT', 'GROUP_SELECT'];
 
 var utils = {
-  exceptField: null,
-
-  setExcpectField: () => {
-    let exceptField = [];
-    kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()},
-    (resp) => {
-      let properties = resp.properties;
-      for (let prop in properties) {
-        if (EXCEPT_FIELD_TYPES.indexOf(properties[prop].type) !== -1) {
-          exceptField.push(properties[prop].code);
-        }
-      }
-      utils.exceptField = exceptField;
-    });
-  },
-
   // kintoneのレコード更新・追加時は、$idなどアップデートできないフィールドがあるので、除外するためのメソッド
   setParams: (record) => {
     var result = {};
     for (let prop in record) {
-      if (utils.exceptField.indexOf(prop) === -1) {
+      if (EXCEPT_FIELD_TYPES.indexOf(record[prop].type) === -1) {
         result[prop] = record[prop];
       }
     }

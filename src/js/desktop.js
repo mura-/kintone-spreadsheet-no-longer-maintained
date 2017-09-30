@@ -18,7 +18,6 @@ import e from './ErrorHandler';
     const query = kintone.app.getQuery();
 
     // 追加、更新不可のデータ定義
-    u.setExcpectField(); 
     u.fetchUsers();
 
     // 列データの定義
