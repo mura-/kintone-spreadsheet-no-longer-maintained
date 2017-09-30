@@ -7,6 +7,7 @@ import e from './ErrorHandler';
     var config = kintone.plugin.app.getConfig(PLUGIN_ID);
     if (!config) return false;
     console.dir(config);
+    const query = u.getQuery(kintone.app.getQueryCondition(), event);
 
     var container = document.getElementById(config.elementId);
 
@@ -34,7 +35,7 @@ import e from './ErrorHandler';
         u.deleteRecords(hot.getSourceData(), index, amount,
           (resp) => {
             console.dir(resp);
-            u.getRecords((resp) => {
+            u.getRecords(query, (resp) => {
               hot.loadData(resp.records);
             });
           },
@@ -57,7 +58,7 @@ import e from './ErrorHandler';
         u.saveRecords(hot.getSourceData(), change,
           (resp) => {
             console.dir(resp);
-            u.getRecords((resp) => {
+            u.getRecords(query, (resp) => {
                 // 更新後、データを再読み込み
                 hot.loadData(resp.records);
               },
@@ -74,7 +75,7 @@ import e from './ErrorHandler';
       }
     });
     // レコードを取得してhandsontableに反映
-    u.getRecords((resp) => {
+    u.getRecords(query, (resp) => {
       hot.loadData(resp.records);
       autoload();
     });
@@ -82,7 +83,7 @@ import e from './ErrorHandler';
     // 定期的にkintone上のデータを再取得する
     var autoload = () => {
       setTimeout(() => {
-        u.getRecords((resp) => {
+        u.getRecords(query, (resp) => {
           hot.loadData(resp.records);
         });
         autoload();
