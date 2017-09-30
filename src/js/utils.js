@@ -1,11 +1,26 @@
 const EXCEPT_FIELD_TYPES = ['RECORD_NUMBER', 'CREATED_TIME', 'UPDATED_TIME', 'CREATOR', 'MODIFIER', 'STATUS', 'STATUS_ASSIGNEE'];
 var utils = {
+  exceptField: null,
+
+  setExcpectField: () => {
+    let exceptField = [];
+    kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()},
+    (resp) => {
+      let properties = resp.properties;
+      for (let prop in properties) {
+        if (EXCEPT_FIELD_TYPES.indexOf(properties[prop].type) !== -1) {
+          exceptField.push(properties[prop].code);
+        }
+      }
+      utils.exceptField = exceptField;
+    });
+  },
 
   // kintoneのレコード更新・追加時は、$idなどアップデートできないフィールドがあるので、除外するためのメソッド
   setParams: (record) => {
     var result = {};
     for (let prop in record) {
-      if (EXCEPT_FIELD_TYPES.indexOf(record[prop].type) === -1) {
+      if (utils.exceptField.indexOf(prop) === -1) {
         result[prop] = record[prop];
       }
     }
@@ -120,16 +135,22 @@ var utils = {
   },
 
   getColumnData: (columns) => {
-    return columns.map((column) => {
-      var columnData = {data: `${column.code}.value`};
+    return utils.getFieldsInfo().then((resp) => {
+      return columns.map((column) => {
+        var columnData = {data: `${column}.value`};
 
-      // if type is DROP_DOWN, add type and source property
-      if (column.type === "DROP_DOWN" || column.type === "RADIO_BUTTON") {
-        columnData.type = "dropdown";
-        columnData.source = Object.keys(column.options);
-      }
-      return columnData;
+        // if type is DROP_DOWN, add type and source property
+        if (resp.properties[column].type === "DROP_DOWN" || resp.properties[column].type === "RADIO_BUTTON") {
+          columnData.type = "dropdown";
+          columnData.source = Object.keys(resp.properties[column].options);
+        }
+        return columnData;
+      });
     });
+  },
+
+  getFieldsInfo: () => {
+    return kintone.api('/k/v1/app/form/fields', 'GET', {app: kintone.app.getId()});
   }
 };
 
