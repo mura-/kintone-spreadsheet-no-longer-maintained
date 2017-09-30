@@ -22,18 +22,19 @@ import e from './ErrorHandler';
 
     // 列データの定義
     var columns = JSON.parse(config.columns);
-    var colHeaders = u.getColHeaders(columns);
+    var colHeaderCodes = u.getColHeaders(columns);
 
     // handsontable初期化
     var hot = null;
-    u.getColumnData(colHeaders).then((columnData) => { // フィールドデータ取得
+    u.getColumnData(colHeaderCodes).then((c) => { // フィールドデータ取得
+      const {colHeaders, columnDatas} = c;
       hot = new Handsontable(container, {
         // この時点ではdataは入力せず、あとから読み込ませるようにする。（データ更新時も再読み込みさせたいため）
         data: [],
         minSpareRows: 1,
         colHeaders: colHeaders,
         contextMenu: ["remove_row"],
-        columns: columnData,
+        columns: columnDatas,
 
         // スプレットシート上のレコードを削除したときに呼び出されるイベント
         // 引数indexは削除する行

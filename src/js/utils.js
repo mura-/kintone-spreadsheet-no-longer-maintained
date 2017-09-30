@@ -131,7 +131,13 @@ var utils = {
 
   getColumnData: (columns) => {
     return utils.getFieldsInfo().then((resp) => {
-      return columns.map((column) => {
+      // ヘッダーの取得
+      const colHeaders = columns.map((column) => {
+        return resp.properties[column].label;
+      });
+
+      // 各セルの設定
+      const columnDatas = columns.map((column) => {
         var columnData = {data: `${column}.value`};
 
         // if type is DROP_DOWN, add type and source property
@@ -141,6 +147,7 @@ var utils = {
         }
         return columnData;
       });
+      return {colHeaders, columnDatas};
     });
   },
 
