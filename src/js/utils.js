@@ -27,11 +27,6 @@ var utils = {
     return result;
   },
 
-  // 現在の検索条件を出す
-  getQuery: (condition, event) => {
-    return `${condition} limit ${event.size} offset ${event.offset}`
-  },
-
   // kintoneのレコード取得用メソッド
   getRecords: (query = '', callback, errorCallback) => {
     kintone.api('/k/v1/records', 'GET', {app: kintone.app.getId(), query},

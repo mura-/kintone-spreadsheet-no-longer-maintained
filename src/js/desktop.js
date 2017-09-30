@@ -15,7 +15,7 @@ import e from './ErrorHandler';
     container.innerHTML = "";
 
     // フィルタの読み込み
-    const query = u.getQuery(kintone.app.getQueryCondition(), event);
+    const query = kintone.app.getQuery();
 
     // 追加、更新不可のデータ定義
     u.setExcpectField(); 
@@ -25,7 +25,7 @@ import e from './ErrorHandler';
     var colHeaders = u.getColHeaders(columns);
 
     // handsontable初期化
-    var hot;
+    var hot = null;
     u.getColumnData(colHeaders).then((columnData) => { // フィールドデータ取得
       hot = new Handsontable(container, {
         // この時点ではdataは入力せず、あとから読み込ませるようにする。（データ更新時も再読み込みさせたいため）
