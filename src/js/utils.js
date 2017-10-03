@@ -137,6 +137,10 @@ var utils = {
           columnData.renderer = utils.userSelectRenderer;
         }
 
+        if (resp.properties[column].type === "CHECK_BOX") {
+          columnData.renderer = utils.checkboxRenderer;
+        }
+
         // set read only
         if (EXCEPT_FIELD_TYPES.concat(NOT_APPROVED_EDIT_FIELDS).indexOf(resp.properties[column].type) !== -1) {
           columnData.readOnly = true;
@@ -161,6 +165,14 @@ var utils = {
   userSelectRenderer: (instance, td, row, col, prop, value, cellProperties) => {
     if(!value) return td;
     td.innerText = value.map(v => v.name).join(", ");
+    td.style.color = '#777';
+    return td;
+  },
+
+  checkboxRenderer: (instance, td, row, col, prop, value, cellProperties) => {
+    if(!value.length) return td;
+    td.innerText = value.join(", ");
+    td.style.color = '#777';
     return td;
   },
 
