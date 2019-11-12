@@ -1,3 +1,9 @@
+No longer maintained
+==========================
+
+現在新しいバージョンを作成中です
+https://github.com/mura-/kintone-spreadsheet
+
 kintone スプレッドシート
 ==========================
 
