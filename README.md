@@ -22,7 +22,7 @@ kintoneの一覧画面をExcelのようなスプレッドシートの見た目�
 
 - kintoneアプリの任意のフィールドを設定できる
 - 設定されたフィールドはスプレッドシート上に表示され、レコードの編集、追加、削除ができる
-- ドロップダウンフィールド、ラジオボタンフィールドに対応
+- ドロップダウンフィールド、ラジオボタンフィールドに対応  
 ![イメージ](https://raw.githubusercontent.com/mura-/kintone-spreadsheet-no-longer-maintained/master/dropdown.gif)
 - ユーザーフィールドとチェックボックスに対応（表示のみ）
 - kintoneの検索機能とページネーション、並び替えに対応
