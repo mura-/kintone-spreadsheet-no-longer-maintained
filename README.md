@@ -12,7 +12,7 @@ kintone スプレッドシート
 kintoneの一覧画面をExcelのようなスプレッドシートの見た目で閲覧、編集ができます。
 現在ベータ版です。
 
-![イメージ](https://raw.githubusercontent.com/mura-/kintone-spreadsheet/master/image.gif)
+![イメージ](https://raw.githubusercontent.com/mura-/kintone-spreadsheet-no-longer-maintained/master/image.gif)
 
 [DEMO](https://dev-demo.cybozu.com/k/39/)   
 デモ環境についての説明は [こちら](https://cybozudev.zendesk.com/hc/ja/articles/208217653)  
